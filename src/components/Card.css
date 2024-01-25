@@ -34,3 +34,10 @@
     transform: rotateY(90deg);
     transition-delay: 0s;
 }
+
+
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
