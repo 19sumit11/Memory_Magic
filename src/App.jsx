@@ -29,15 +29,34 @@ function App() {
     const shuffleCards = [...cardImages, ...cardImages]
     .sort(()=> Math.random() - 0.5)
     .map((card) =>({...card, id:Math.random()}));
+    setFirstChoice(null);
+    setSecondChoice(null);
+    
     setCards(shuffleCards);
     setTurns(0);
   }
   
   // handle a choice
+  
+
+
+  // const handleChoice = (card) => {
+  //   firstChoice ? setSecondChoice(card) : setFirstChoice(card);
+  // }
 
   const handleChoice = (card) => {
+    // Check if the card is already matched or if it is the same as the first choice
+    if (card.matched || (firstChoice && card.id === firstChoice.id)) {
+      return;
+    }
+  
+    // Set first or second choice based on whether firstChoice is already set
     firstChoice ? setSecondChoice(card) : setFirstChoice(card);
   }
+  
+  
+  
+  
 
 // compare 2 selected cards
 
@@ -76,6 +95,14 @@ const resetTurn = () => {
 
 }
 
+
+// start a new game automatically
+
+useEffect(() => {
+  shuffleCards()
+},[])
+
+
   return (
     <div className="App">
       <h1>Magic Match</h1>
@@ -92,7 +119,7 @@ const resetTurn = () => {
            />
         ))}
       </div>
-     
+      <p>Turns:{turns}</p>
     </div>
   )
 }
